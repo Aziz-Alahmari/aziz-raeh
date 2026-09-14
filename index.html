@@ -215,7 +215,7 @@ function importXMLFile(file){
      state.employees=parsed.teachers.map(function(t,i){
        var old=oldByName[norm(t.name)];
        return old?Object.assign({},old,{id:t.id,name:t.name,subject:old.subject||teacherSubjects(t.id,parsed.sessions).join("، "),load:parsed.sessions.filter(function(s){return s.teacherIds.indexOf(t.id)>=0;}).length}):{id:t.id,name:t.name,role:"معلم",subject:teacherSubjects(t.id,parsed.sessions).join("، "),load:parsed.sessions.filter(function(s){return s.teacherIds.indexOf(t.id)>=0;}).length,rank:i+1,supervision:"",duty:"",early:"",phone:""};
-     }).concat(state.employees.filter(function(e){return e.role!=="معلم"&&!parsed.teachers.some(function(t){return norm(t.name)===norm(e.name);}));});
+     }).concat(state.employees.filter(function(e){return e.role!=="معلم"&&!parsed.teachers.some(function(t){return norm(t.name)===norm(e.name);});}));
      state.importedAt=new Date().toISOString();saveState();renderAll();showAlert("تم استيراد الجدول: "+parsed.teachers.length+" معلمًا، "+parsed.classes.length+" فصلًا، "+parsed.sessions.length+" حصة.","ok");
    }catch(e){showAlert(e.message||"تعذر قراءة الملف.","err");}
  };
