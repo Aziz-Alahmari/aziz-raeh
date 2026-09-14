@@ -214,7 +214,7 @@ function importXMLFile(file){
      var oldByName={};state.employees.forEach(function(e){oldByName[norm(e.name)]=e;});
      state.employees=parsed.teachers.map(function(t,i){
        var old=oldByName[norm(t.name)];
-       return old||{id:t.id,name:t.name,role:"معلم",subject:teacherSubjects(t.id,parsed.sessions).join("، "),load:parsed.sessions.filter(function(s){return s.teacherIds.indexOf(t.id)>=0;}).length,rank:i+1,supervision:"",duty:"",early:"",phone:""};
+       return old?Object.assign({},old,{id:t.id,name:t.name,subject:old.subject||teacherSubjects(t.id,parsed.sessions).join("، "),load:parsed.sessions.filter(function(s){return s.teacherIds.indexOf(t.id)>=0;}).length}):{id:t.id,name:t.name,role:"معلم",subject:teacherSubjects(t.id,parsed.sessions).join("، "),load:parsed.sessions.filter(function(s){return s.teacherIds.indexOf(t.id)>=0;}).length,rank:i+1,supervision:"",duty:"",early:"",phone:""};
      }).concat(state.employees.filter(function(e){return e.role!=="معلم"&&!parsed.teachers.some(function(t){return norm(t.name)===norm(e.name);}));});
      state.importedAt=new Date().toISOString();saveState();renderAll();showAlert("تم استيراد الجدول: "+parsed.teachers.length+" معلمًا، "+parsed.classes.length+" فصلًا، "+parsed.sessions.length+" حصة.","ok");
    }catch(e){showAlert(e.message||"تعذر قراءة الملف.","err");}
@@ -308,9 +308,9 @@ document.getElementById("saveBells").addEventListener("click",function(){state.b
 document.getElementById("exportBackup").addEventListener("click",function(){var blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="نسخة-منصة-جابر-"+todayISO()+".json";a.click();setTimeout(function(){URL.revokeObjectURL(a.href);},1000);});
 document.getElementById("backupInput").addEventListener("change",function(){var f=this.files[0];if(!f)return;var r=new FileReader();r.onload=function(){try{var v=JSON.parse(r.result);if(!v.bells||!Array.isArray(v.sessions))throw new Error();state=Object.assign(emptyState(),v);saveState();renderAll();showAlert("تمت استعادة النسخة الاحتياطية.","ok");}catch(e){showAlert("ملف النسخة الاحتياطية غير صالح.","err");}};r.readAsText(f);this.value="";});
 document.getElementById("resetData").addEventListener("click",function(){if(!confirm("سيتم مسح بيانات المنصة المحفوظة في هذا المتصفح. هل أنت متأكد؟"))return;localStorage.removeItem(KEY);state=emptyState();renderAll();showAlert("تم مسح بيانات المتصفح.","ok");});
-document.getElementById("waitDate").value=todayISO();document.getElementById("waitDay").value=String(Math.min(Math.max(new Date().getDay(),0),4));
+document.getElementById("waitDate").value=todayISO();
 function tick(){var d=new Date();document.getElementById("clock").textContent=d.toLocaleTimeString("ar-SA",{hour:"2-digit",minute:"2-digit"});document.getElementById("today").textContent=d.toLocaleDateString("ar-SA",{weekday:"long",day:"numeric",month:"short"});var p=currentPeriod();document.getElementById("periodNow").textContent=p?"الحصة "+p:"خارج وقت الحصص";}tick();setInterval(tick,30000);
-renderAll();
+renderAll();document.getElementById("waitDay").value=String(Math.min(Math.max(new Date().getDay(),0),4));
 })();
 </script>
 </body>
