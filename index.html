@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>منصة جابر لإدارة الجدول المدرسي</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%230f3d5e'/%3E%3Cpath d='M18 17h28v7H25v17c0 5-3 9-9 9h-2v-7h2c2 0 3-1 3-3V17z' fill='%23fff'/%3E%3Ccircle cx='43' cy='42' r='7' fill='%23d7a84c'/%3E%3C/svg%3E">
+<style>
+:root{--nav:#0b2940;--nav2:#123d5d;--ink:#152536;--muted:#68798a;--line:#dce4ea;--bg:#edf2f6;--card:#fff;--gold:#d7a84c;--blue:#176b95;--ok:#168064;--warn:#b46a18;--danger:#b53d4c;--shadow:0 8px 26px rgba(20,42,60,.08);font-family:Cairo,Tajawal,"Segoe UI",Tahoma,Arial,sans-serif}
+*{box-sizing:border-box}html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-size:16px}button,input,select,textarea{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid rgba(23,107,149,.25);outline-offset:2px}
+.app{display:grid;grid-template-columns:250px 1fr;height:100vh;overflow:hidden}
+aside{background:linear-gradient(180deg,var(--nav),#071d2e);color:#fff;padding:20px 14px;display:flex;flex-direction:column;gap:18px}
+.brand{display:flex;align-items:center;gap:12px;padding:2px 6px 16px;border-bottom:1px solid rgba(255,255,255,.13)}
+.mark{width:44px;height:44px;border-radius:13px;background:var(--gold);color:var(--nav);display:grid;place-items:center;font-weight:900;font-size:24px}
+.brand h1{font-size:16px;margin:0;line-height:1.45}.brand small{color:#b9cad6}
+nav{display:grid;gap:7px}.nav-btn{border:0;background:transparent;color:#d7e2ea;text-align:right;padding:11px 13px;border-radius:11px;display:flex;align-items:center;gap:10px;font-weight:700}.nav-btn:hover,.nav-btn.active{background:rgba(255,255,255,.11);color:#fff}.nav-btn.active{box-shadow:inset -3px 0 var(--gold)}
+.nav-ico{width:24px;text-align:center}.aside-foot{margin-top:auto;border-top:1px solid rgba(255,255,255,.12);padding:14px 7px 0;color:#b9cad6;font-size:12px;line-height:1.7}
+main{min-width:0;display:flex;flex-direction:column;overflow:hidden}
+.topbar{height:76px;background:var(--card);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:12px 24px;gap:16px;flex:0 0 auto}
+.title h2{font-size:20px;margin:0}.title p{font-size:13px;color:var(--muted);margin:4px 0 0}
+.live{display:flex;align-items:center;gap:10px}.clock{background:var(--nav);color:#fff;border-radius:12px;padding:8px 14px;text-align:center;min-width:122px}.clock strong{font-size:18px;display:block}.clock span{font-size:11px;color:#cbd8e0}
+.period-pill{padding:10px 14px;border:1px solid #cfe0e8;border-radius:12px;color:var(--blue);font-weight:800;background:#f4fafc}
+.content{padding:18px 22px 24px;overflow:auto;height:calc(100vh - 76px)}
+.view{display:none}.view.active{display:block}
+.toolbar{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-bottom:14px}.toolbar .spacer{flex:1}
+.btn{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:10px;padding:9px 14px;font-weight:700;min-height:42px}.btn:hover{border-color:#9eb5c4}.btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}.btn.gold{background:var(--gold);border-color:var(--gold);color:#132b3d}.btn.danger{color:var(--danger);border-color:#efcbd0}.btn.small{padding:6px 9px;min-height:auto;font-size:13px}
+.file-btn input{display:none}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}.stat{grid-column:span 3;background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:15px;padding:16px;position:relative;overflow:hidden}.stat:after{content:"";position:absolute;top:0;right:0;width:5px;height:100%;background:var(--gold)}.stat span{font-size:13px;color:var(--muted)}.stat strong{font-size:29px;margin-top:6px;display:block}.stat em{font-style:normal;color:var(--blue);font-size:12px}
+.card{background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:15px;padding:17px}.card h3{margin:0 0 13px;font-size:17px}.card h3 small{font-weight:400;color:var(--muted);margin-right:7px}.span8{grid-column:span 8}.span4{grid-column:span 4}.span12{grid-column:span 12}
+.hero-import{border:1px dashed #93afbf;background:linear-gradient(135deg,#f7fbfd,#eef6fa);text-align:center;padding:28px;border-radius:15px}.hero-import h3{margin:0 0 8px;font-size:20px}.hero-import p{margin:0 auto 18px;color:var(--muted);max-width:620px;line-height:1.8}
+label.field{display:grid;gap:6px;font-size:13px;color:var(--muted)}input,select{border:1px solid #cfdbe3;background:#fff;border-radius:9px;padding:9px 11px;min-height:42px;color:var(--ink)}.filters{display:flex;gap:10px;flex-wrap:wrap}.filters label{min-width:180px}
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:12px;background:#fff}table{width:100%;border-collapse:collapse;min-width:720px}th,td{border-bottom:1px solid var(--line);padding:10px 9px;text-align:right;vertical-align:middle}th{background:#f1f6f9;color:#365267;font-size:13px;position:sticky;top:0;z-index:1}td{font-size:14px}tr:last-child td{border-bottom:0}.empty{padding:32px;text-align:center;color:var(--muted)}
+.schedule{table-layout:fixed}.schedule th,.schedule td{text-align:center}.schedule th:first-child,.schedule td:first-child{width:112px;font-weight:800;background:#f7fafc}.lesson{background:#eaf5f7;color:#115a70;border-radius:8px;padding:7px 5px;min-height:48px;display:grid;place-items:center;line-height:1.35;font-weight:700;font-size:13px}.lesson small{font-weight:500;color:#4d7380}.free{color:#b7c2ca}
+.alert{padding:11px 13px;border-radius:10px;margin-bottom:12px;display:none}.alert.show{display:block}.alert.ok{background:#e7f6f1;color:#0c684f}.alert.err{background:#fdebed;color:#8e2633}.alert.warn{background:#fff5e8;color:#845019}
+.chips{display:flex;gap:7px;flex-wrap:wrap}.chip{border:1px solid var(--line);border-radius:999px;padding:6px 10px;background:#fff;font-size:13px}.chip strong{color:var(--blue)}
+.kpi-line{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px dashed var(--line)}.kpi-line:last-child{border:0}.kpi-line span{color:var(--muted)}.bar{height:9px;background:#e7edf1;border-radius:99px;overflow:hidden;margin-top:6px}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),#e6c46f)}
+.modal{position:fixed;inset:0;background:rgba(3,19,31,.55);display:none;align-items:center;justify-content:center;padding:20px;z-index:30}.modal.open{display:flex}.dialog{width:min(720px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:16px;padding:20px;box-shadow:0 28px 80px rgba(0,0,0,.25)}.dialog h3{margin-top:0}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.form-grid .full{grid-column:1/-1}
+.badge{display:inline-flex;border-radius:999px;padding:4px 8px;font-size:12px;font-weight:800}.badge.teacher{background:#e7f3f8;color:#145d80}.badge.admin{background:#f8efe0;color:#805817}.badge.guide{background:#e9f5ee;color:#176645}.badge.other{background:#f0edf7;color:#604b84}
+.week-row{display:grid;grid-template-columns:110px repeat(7,minmax(90px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}.week-row>div{background:#fff;padding:9px;text-align:center}.week-row.head>div{background:#eef4f7;font-weight:800;color:#39566a}
+.wait-summary{display:grid;gap:10px}.wait-item{border:1px solid var(--line);border-radius:11px;padding:11px;background:#fff;display:grid;grid-template-columns:70px 1fr 1fr 120px;gap:10px;align-items:center}.wait-item b{color:var(--blue)}
+.notice{font-size:13px;color:var(--muted);line-height:1.75;background:#f7fafb;border-right:4px solid var(--gold);padding:10px 12px;border-radius:8px}
+.mini-actions{display:flex;gap:6px}.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+@media(max-width:1050px){.app{grid-template-columns:82px 1fr}.brand div:last-child,.nav-btn span:last-child,.aside-foot{display:none}.brand{justify-content:center}.nav-btn{justify-content:center}.stat{grid-column:span 6}.span8,.span4{grid-column:span 12}}
+@media(max-width:680px){.app{display:block;overflow:auto}aside{position:sticky;top:0;z-index:20;padding:7px;height:auto;display:block}.brand{display:none}nav{display:flex;overflow:auto}.nav-btn{flex:0 0 auto;padding:9px}.nav-btn span:last-child{display:inline}.topbar{height:auto;padding:10px 12px}.title p{display:none}.live{gap:5px}.clock{min-width:100px;padding:6px}.period-pill{display:none}.content{height:auto;padding:12px}.stat{grid-column:span 12}.form-grid{grid-template-columns:1fr}.wait-item{grid-template-columns:1fr 1fr}.grid{gap:10px}}
+@media print{body{background:#fff}.app{display:block;height:auto}.no-print,aside,.topbar{display:none!important}.content{height:auto;overflow:visible;padding:0}.view{display:none!important}.view.print-target{display:block!important}.card{box-shadow:none;border:0;padding:0}.table-wrap{overflow:visible;border-color:#333}table{min-width:0}th,td{border:1px solid #777;padding:6px;font-size:11px}.print-head{display:block!important;text-align:center;margin-bottom:12px}.wait-item{grid-template-columns:70px 1fr 1fr 100px;page-break-inside:avoid}.signature{display:block!important;margin-top:20px}}
+.print-head,.signature{display:none}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="no-print">
+  <div class="brand"><div class="mark">ج</div><div><h1>منصة جابر</h1><small>إدارة اليوم الدراسي</small></div></div>
+  <nav id="nav">
+    <button class="nav-btn active" data-view="dashboard"><span class="nav-ico">▦</span><span>لوحة اليوم</span></button>
+    <button class="nav-btn" data-view="teachers"><span class="nav-ico">◫</span><span>جدول المعلمين</span></button>
+    <button class="nav-btn" data-view="classes"><span class="nav-ico">▤</span><span>جدول الفصول</span></button>
+    <button class="nav-btn" data-view="waiting"><span class="nav-ico">↺</span><span>سجل الانتظار</span></button>
+    <button class="nav-btn" data-view="employees"><span class="nav-ico">♙</span><span>الموظفون</span></button>
+    <button class="nav-btn" data-view="absence"><span class="nav-ico">◔</span><span>غياب الطلاب</span></button>
+    <button class="nav-btn" data-view="settings"><span class="nav-ico">⚙</span><span>الإعدادات</span></button>
+  </nav>
+  <div class="aside-foot">البيانات محفوظة في هذا المتصفح فقط.<br>لا يوجد إرسال تلقائي.</div>
+</aside>
+<main>
+  <header class="topbar no-print">
+    <div class="title"><h2 id="pageTitle">لوحة اليوم</h2><p id="schoolName">مدرسة جابر بن عبدالله الأنصاري الابتدائية</p></div>
+    <div class="live"><div class="period-pill" id="periodNow">خارج وقت الحصص</div><div class="clock"><strong id="clock">--:--</strong><span id="today">--</span></div></div>
+  </header>
+  <section class="content">
+    <div id="alert" class="alert"></div>
+    <section id="dashboard" class="view active">
+      <div id="emptyImport" class="hero-import">
+        <h3>استيراد جدول المدرسة</h3>
+        <p>اختر ملف XML الصادر من برنامج الجدول. تتم القراءة داخل المتصفح ولا يُرفع الملف أو محتواه إلى أي جهة.</p>
+        <label class="btn primary file-btn">اختيار ملف XML<input id="xmlInputMain" type="file" accept=".xml,text/xml"></label>
+      </div>
+      <div id="dashboardData" hidden>
+        <div class="grid">
+          <article class="stat"><span>المعلمون</span><strong id="statTeachers">0</strong><em>من ملف الجدول</em></article>
+          <article class="stat"><span>الفصول</span><strong id="statClasses">0</strong><em>الشعب المستوردة</em></article>
+          <article class="stat"><span>الحصص الأسبوعية</span><strong id="statSessions">0</strong><em>الحصص المجدولة</em></article>
+          <article class="stat"><span>غياب اليوم</span><strong id="statAbsent">0</strong><em>معلمون مسجلون</em></article>
+          <article class="card span8"><h3>الحصة الحالية <small id="currentMeta"></small></h3><div id="currentLessons" class="table-wrap"></div></article>
+          <article class="card span4"><h3>ملخص اليوم</h3><div id="todaySummary"></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="teachers" class="view">
+      <div class="toolbar no-print"><div class="filters"><label class="field">المعلم<select id="teacherFilter"></select></label></div><span class="spacer"></span><button class="btn" onclick="printView('teachers')">طباعة</button></div>
+      <div class="print-head"><h2>جدول المعلم</h2><p id="teacherPrintName"></p></div>
+      <div class="card"><div id="teacherSchedule"></div></div>
+    </section>
+
+    <section id="classes" class="view">
+      <div class="toolbar no-print"><div class="filters"><label class="field">الفصل<select id="classFilter"></select></label></div><span class="spacer"></span><button class="btn" onclick="printView('classes')">طباعة</button></div>
+      <div class="print-head"><h2>جدول الفصل</h2><p id="classPrintName"></p></div>
+      <div class="card"><div id="classSchedule"></div></div>
+    </section>
+
+    <section id="waiting" class="view">
+      <div class="print-head"><h2>سجل حصص الانتظار</h2><p id="waitingPrintDate"></p></div>
+      <div class="toolbar no-print">
+        <label class="field">اليوم<select id="waitDay"></select></label>
+        <label class="field">التاريخ<input id="waitDate" type="date"></label>
+        <span class="spacer"></span><button class="btn gold" id="buildWaiting">توزيع الانتظار</button><button class="btn" onclick="printView('waiting')">طباعة السجل</button>
+      </div>
+      <div class="card no-print"><h3>المعلمون الغائبون <small>حتى أربعة</small></h3><div class="form-grid" id="absentSelectors"></div></div>
+      <div class="card" style="margin-top:14px"><h3>التكليف المقترح</h3><div id="waitingResults" class="wait-summary"><div class="empty">اختر الغائبين ثم اضغط «توزيع الانتظار».</div></div></div>
+      <div class="signature">توقيع المكلف: ____________________ &nbsp;&nbsp;&nbsp; اعتماد مدير المدرسة: ____________________</div>
+    </section>
+
+    <section id="employees" class="view">
+      <div class="toolbar"><button class="btn primary" id="addEmployee">إضافة موظف</button><span class="spacer"></span><input id="employeeSearch" placeholder="بحث بالاسم أو المهمة" aria-label="بحث الموظفين"></div>
+      <div class="card"><div class="table-wrap"><table><thead><tr><th>الاسم</th><th>الصفة</th><th>المادة/المهمة</th><th>النصاب</th><th>ترتيب الانتظار</th><th>الخروج المبكر</th><th>إجراء</th></tr></thead><tbody id="employeesBody"></tbody></table></div></div>
+    </section>
+
+    <section id="absence" class="view">
+      <div class="toolbar"><button class="btn primary" id="addStudentAbsence">تسجيل غياب</button><span class="spacer"></span><label class="field">الفصل<select id="absenceClassFilter"></select></label></div>
+      <div class="grid">
+        <article class="stat"><span>إجمالي المسجل</span><strong id="absTotal">0</strong><em>طالب/حالة</em></article>
+        <article class="stat"><span>أعلى يوم</span><strong id="absHigh">0</strong><em id="absHighDate">—</em></article>
+        <article class="stat"><span>أقل يوم</span><strong id="absLow">0</strong><em id="absLowDate">—</em></article>
+        <article class="stat"><span>عدد السجلات</span><strong id="absRecords">0</strong><em>أيام وفصول</em></article>
+        <article class="card span12"><div class="table-wrap"><table><thead><tr><th>التاريخ</th><th>الفصل</th><th>عدد الغائبين</th><th>ملاحظة</th><th>إجراء</th></tr></thead><tbody id="absenceBody"></tbody></table></div></article>
+      </div>
+    </section>
+
+    <section id="settings" class="view">
+      <div class="grid">
+        <article class="card span8"><h3>أوقات الحصص</h3><div id="bellEditor"></div><div class="toolbar" style="margin-top:12px"><button class="btn primary" id="saveBells">حفظ الأوقات</button></div></article>
+        <article class="card span4"><h3>البيانات والنسخ الاحتياطي</h3><p class="notice">احفظ نسخة احتياطية بعد كل تعديل مهم. النسخة تحتوي بياناتك؛ احتفظ بها في مكان آمن.</p><div class="toolbar"><label class="btn primary file-btn">استيراد XML<input id="xmlInputSettings" type="file" accept=".xml,text/xml"></label><button class="btn" id="exportBackup">تصدير نسخة</button><label class="btn file-btn">استعادة نسخة<input id="backupInput" type="file" accept=".json,application/json"></label><button class="btn danger" id="resetData">مسح بيانات المتصفح</button></div></article>
+        <article class="card span12"><h3>الخصوصية</h3><div class="chips"><span class="chip"><strong>محلي</strong> لا رفع للملفات</span><span class="chip"><strong>يدوي</strong> لا إرسال تلقائي</span><span class="chip"><strong>قابل للاسترجاع</strong> عبر النسخة الاحتياطية</span></div></article>
+      </div>
+    </section>
+  </section>
+</main>
+</div>
+
+<div id="employeeModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="employeeModalTitle"><form class="dialog" id="employeeForm"><h3 id="employeeModalTitle">بيانات الموظف</h3><input type="hidden" id="empId"><div class="form-grid"><label class="field">الاسم<input id="empName" required></label><label class="field">الصفة<select id="empRole"><option>معلم</option><option>إداري</option><option>موجه طلابي</option><option>وكيل</option><option>مستخدم</option><option>حارس</option><option>أخرى</option></select></label><label class="field">المادة أو المهمة<input id="empSubject"></label><label class="field">رقم الجوال<input id="empPhone" inputmode="tel"></label><label class="field">النصاب الأسبوعي<input id="empLoad" type="number" min="0" max="40"></label><label class="field">ترتيب الانتظار<input id="empRank" type="number" min="1" max="99"></label><label class="field">الإشراف<input id="empSupervision"></label><label class="field">المناوبة<input id="empDuty"></label><label class="field full">يوم الخروج المبكر<select id="empEarly"><option value="">غير محدد</option><option>الأحد</option><option>الاثنين</option><option>الثلاثاء</option><option>الأربعاء</option><option>الخميس</option></select></label></div><div class="toolbar" style="margin-top:16px"><button class="btn primary" type="submit">حفظ</button><button class="btn" type="button" onclick="closeModal('employeeModal')">إلغاء</button></div></form></div>
+<div id="absenceModal" class="modal" role="dialog" aria-modal="true"><form class="dialog" id="absenceForm"><h3>تسجيل غياب الطلاب</h3><div class="form-grid"><label class="field">التاريخ<input id="absDate" type="date" required></label><label class="field">الفصل<select id="absClass" required></select></label><label class="field">عدد الغائبين<input id="absCount" type="number" min="0" required></label><label class="field">ملاحظة<input id="absNote"></label></div><div class="toolbar" style="margin-top:16px"><button class="btn primary" type="submit">حفظ</button><button class="btn" type="button" onclick="closeModal('absenceModal')">إلغاء</button></div></form></div>
+
+<script>
+(function(){
+"use strict";
+var KEY="jaber_school_platform_v1";
+var DAYS=["الأحد","الاثنين","الثلاثاء","الأربعاء","الخميس"];
+var DEFAULT_BELLS=[
+ {n:1,start:"07:30",end:"08:15"},{n:2,start:"08:15",end:"09:00"},{n:3,start:"09:00",end:"09:45"},
+ {n:4,start:"09:45",end:"10:30"},{n:5,start:"10:30",end:"11:15"},{n:6,start:"11:15",end:"12:00"},{n:7,start:"12:00",end:"12:45"}
+];
+var state=loadState();
+function emptyState(){return {school:"مدرسة جابر بن عبدالله الأنصاري الابتدائية",teachers:[],employees:[],classes:[],subjects:[],lessons:[],sessions:[],bells:DEFAULT_BELLS,teacherAbsences:[],studentAbsences:[],importedAt:null};}
+function loadState(){try{var v=JSON.parse(localStorage.getItem(KEY)||"null");return v&&v.bells?Object.assign(emptyState(),v):emptyState();}catch(e){return emptyState();}}
+function saveState(){localStorage.setItem(KEY,JSON.stringify(state));}
+function uid(prefix){return prefix+"_"+Date.now().toString(36)+"_"+Math.random().toString(36).slice(2,8);}
+function esc(v){return String(v==null?"":v).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+function norm(v){return String(v||"").trim().replace(/\s+/g," ").toLowerCase();}
+function attr(el,names){for(var i=0;i<names.length;i++){if(el.hasAttribute(names[i]))return el.getAttribute(names[i]);}return "";}
+function splitIds(v){return String(v||"").split(/[,;\s]+/).map(function(x){return x.trim();}).filter(Boolean);}
+function showAlert(msg,type){var a=document.getElementById("alert");a.textContent=msg;a.className="alert show "+(type||"ok");clearTimeout(showAlert.t);showAlert.t=setTimeout(function(){a.className="alert";},4200);}
+function todayISO(){var d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
+function dayIndexFromDate(v){var d=new Date(v+"T12:00:00");var n=d.getDay();return n>=0&&n<=4?n:-1;}
+function dayFromCard(c){
+ var d=attr(c,["day","dayid","dayindex"]);
+ if(d!==""){var n=parseInt(d,10);if(n>=0&&n<=4)return [n];if(n>=1&&n<=5)return [n-1];}
+ var bits=attr(c,["days","daymask"]);
+ if(bits){
+   if(/^[01]{5,7}$/.test(bits)){var out=[];bits.split("").forEach(function(x,i){if(x==="1"&&i<5)out.push(i);});if(out.length)return out;}
+   var nums=splitIds(bits).map(Number).filter(function(x){return x>=0&&x<=5;});
+   if(nums.length)return nums.map(function(x){return x===0?0:x-1;});
+ }
+ return [0];
+}
+function parseXML(text){
+ var doc=new DOMParser().parseFromString(text,"application/xml");
+ if(doc.querySelector("parsererror"))throw new Error("ملف XML غير صالح أو غير مكتمل.");
+ function mapNodes(selector,type){
+   return Array.from(doc.querySelectorAll(selector)).map(function(el,i){
+     return {id:attr(el,["id","ID","_id"])||type+"_"+i,name:attr(el,["name","Name","short","label"])||el.textContent.trim()||type+" "+(i+1)};
+   }).filter(function(x){return x.name;});
+ }
+ var teachers=mapNodes("teachers > teacher, teacher[id], Teacher","teacher");
+ var classes=mapNodes("classes > class, class[id], Class","class");
+ var subjects=mapNodes("subjects > subject, subject[id], Subject","subject");
+ var tMap={},cMap={},sMap={};teachers.forEach(function(x){tMap[x.id]=x.name;});classes.forEach(function(x){cMap[x.id]=x.name;});subjects.forEach(function(x){sMap[x.id]=x.name;});
+ var lessons=Array.from(doc.querySelectorAll("lessons > lesson, lesson[id], Lesson")).map(function(el,i){
+   var tids=splitIds(attr(el,["teacherids","teacherid","teachers","teacher"]));
+   var cids=splitIds(attr(el,["classids","classid","classes","class"]));
+   var sid=attr(el,["subjectid","subject","subjectids"]);
+   return {id:attr(el,["id","ID"])||"lesson_"+i,teacherIds:tids,classIds:cids,subjectId:splitIds(sid)[0]||sid,teacherNames:tids.map(function(x){return tMap[x]||x;}),classNames:cids.map(function(x){return cMap[x]||x;}),subjectName:sMap[splitIds(sid)[0]||sid]||sid||"مادة"};
+ });
+ var lMap={};lessons.forEach(function(x){lMap[x.id]=x;});
+ var sessions=[];
+ Array.from(doc.querySelectorAll("cards > card, card[lessonid], Card")).forEach(function(el){
+   var lid=attr(el,["lessonid","lesson","lessonids"]);
+   var lesson=lMap[splitIds(lid)[0]||lid];
+   if(!lesson)return;
+   var p=parseInt(attr(el,["period","periodid","hour"]),10);
+   if(!p||p<1||p>12)return;
+   dayFromCard(el).forEach(function(day){sessions.push({id:uid("s"),lessonId:lesson.id,day:day,period:p,teacherIds:lesson.teacherIds,classIds:lesson.classIds,teacherNames:lesson.teacherNames,classNames:lesson.classNames,subjectName:lesson.subjectName});});
+ });
+ if(!teachers.length||!classes.length)throw new Error("لم أجد قوائم المعلمين والفصول في الملف.");
+ if(!sessions.length)throw new Error("تمت قراءة الأسماء لكن لم أجد بطاقات الحصص داخل XML.");
+ return {teachers:teachers,classes:classes,subjects:subjects,lessons:lessons,sessions:sessions};
+}
+function importXMLFile(file){
+ var reader=new FileReader();
+ reader.onload=function(){
+   try{
+     var parsed=parseXML(String(reader.result||""));
+     state.teachers=parsed.teachers;state.classes=parsed.classes;state.subjects=parsed.subjects;state.lessons=parsed.lessons;state.sessions=parsed.sessions;
+     var oldByName={};state.employees.forEach(function(e){oldByName[norm(e.name)]=e;});
+     state.employees=parsed.teachers.map(function(t,i){
+       var old=oldByName[norm(t.name)];
+       return old||{id:t.id,name:t.name,role:"معلم",subject:teacherSubjects(t.id,parsed.sessions).join("، "),load:parsed.sessions.filter(function(s){return s.teacherIds.indexOf(t.id)>=0;}).length,rank:i+1,supervision:"",duty:"",early:"",phone:""};
+     }).concat(state.employees.filter(function(e){return e.role!=="معلم"&&!parsed.teachers.some(function(t){return norm(t.name)===norm(e.name);}));});
+     state.importedAt=new Date().toISOString();saveState();renderAll();showAlert("تم استيراد الجدول: "+parsed.teachers.length+" معلمًا، "+parsed.classes.length+" فصلًا، "+parsed.sessions.length+" حصة.","ok");
+   }catch(e){showAlert(e.message||"تعذر قراءة الملف.","err");}
+ };
+ reader.readAsText(file);
+}
+function teacherSubjects(id,sessions){var seen={};(sessions||state.sessions).filter(function(s){return s.teacherIds.indexOf(id)>=0;}).forEach(function(s){seen[s.subjectName]=1;});return Object.keys(seen);}
+function teacherName(id){var t=state.teachers.find(function(x){return x.id===id;});return t?t.name:id;}
+function className(id){var c=state.classes.find(function(x){return x.id===id;});return c?c.name:id;}
+function roleClass(role){if(role==="معلم")return"teacher";if(role==="إداري"||role==="وكيل")return"admin";if(role==="موجه طلابي")return"guide";return"other";}
+function renderSelect(id,items,placeholder){
+ var el=document.getElementById(id);if(!el)return;var old=el.value;el.innerHTML=(placeholder?'<option value="">'+esc(placeholder)+'</option>':"")+items.map(function(x){return '<option value="'+esc(x.id)+'">'+esc(x.name)+'</option>';}).join("");if(items.some(function(x){return x.id===old;}))el.value=old;else if(!placeholder&&items[0])el.value=items[0].id;
+}
+function periodCount(){var max=state.sessions.reduce(function(m,s){return Math.max(m,s.period);},7);return Math.min(Math.max(max,6),8);}
+function scheduleHTML(type,id){
+ if(!id)return '<div class="empty">لا توجد بيانات لعرضها.</div>';
+ var max=periodCount();var out='<div class="table-wrap"><table class="schedule"><thead><tr><th>اليوم</th>';
+ for(var p=1;p<=max;p++)out+='<th>الحصة '+p+'</th>';out+='</tr></thead><tbody>';
+ DAYS.forEach(function(day,di){out+='<tr><td>'+day+'</td>';for(var p=1;p<=max;p++){var ss=state.sessions.filter(function(s){return s.day===di&&s.period===p&&(type==="teacher"?s.teacherIds.indexOf(id)>=0:s.classIds.indexOf(id)>=0);});out+='<td>';if(!ss.length)out+='<span class="free">—</span>';else ss.forEach(function(s){out+='<div class="lesson">'+esc(s.subjectName)+'<small>'+esc(type==="teacher"?s.classNames.join("، "):s.teacherNames.join("، "))+'</small></div>';});out+='</td>';}out+='</tr>';});out+='</tbody></table></div>';return out;
+}
+function renderSchedules(){
+ renderSelect("teacherFilter",state.teachers,"");renderSelect("classFilter",state.classes,"");renderSelect("absenceClassFilter",state.classes,"كل الفصول");renderSelect("absClass",state.classes,"");
+ var tf=document.getElementById("teacherFilter"),cf=document.getElementById("classFilter");
+ document.getElementById("teacherSchedule").innerHTML=scheduleHTML("teacher",tf.value);document.getElementById("classSchedule").innerHTML=scheduleHTML("class",cf.value);
+ document.getElementById("teacherPrintName").textContent=tf.options[tf.selectedIndex]?tf.options[tf.selectedIndex].text:"";
+ document.getElementById("classPrintName").textContent=cf.options[cf.selectedIndex]?cf.options[cf.selectedIndex].text:"";
+}
+function currentPeriod(){
+ var now=new Date(),mins=now.getHours()*60+now.getMinutes();
+ for(var i=0;i<state.bells.length;i++){var b=state.bells[i],a=b.start.split(":").map(Number),z=b.end.split(":").map(Number);if(mins>=a[0]*60+a[1]&&mins<z[0]*60+z[1])return b.n;}return 0;
+}
+function renderDashboard(){
+ var has=state.sessions.length>0;document.getElementById("emptyImport").hidden=has;document.getElementById("dashboardData").hidden=!has;if(!has)return;
+ document.getElementById("statTeachers").textContent=state.teachers.length;document.getElementById("statClasses").textContent=state.classes.length;document.getElementById("statSessions").textContent=state.sessions.length;
+ var di=new Date().getDay(),schoolDay=di>=0&&di<=4?di:-1,p=currentPeriod(),today=todayISO();var absent=state.teacherAbsences.filter(function(a){return a.date===today;});
+ document.getElementById("statAbsent").textContent=absent.length;
+ var cur=schoolDay<0||!p?[]:state.sessions.filter(function(s){return s.day===schoolDay&&s.period===p;});
+ document.getElementById("currentMeta").textContent=schoolDay<0?"عطلة أسبوعية":p?"الحصة "+p:"لا توجد حصة جارية";
+ var box=document.getElementById("currentLessons");if(!cur.length)box.innerHTML='<div class="empty">لا توجد حصص جارية الآن.</div>';else{var h='<table><thead><tr><th>الفصل</th><th>المادة</th><th>المعلم</th></tr></thead><tbody>';cur.forEach(function(s){h+='<tr><td>'+esc(s.classNames.join("، "))+'</td><td>'+esc(s.subjectName)+'</td><td>'+esc(s.teacherNames.join("، "))+'</td></tr>';});box.innerHTML=h+'</tbody></table>';}
+ var daySessions=schoolDay<0?[]:state.sessions.filter(function(s){return s.day===schoolDay;});var activeTeachers={};daySessions.forEach(function(s){s.teacherIds.forEach(function(id){activeTeachers[id]=1;});});
+ document.getElementById("todaySummary").innerHTML='<div class="kpi-line"><span>حصص اليوم</span><b>'+daySessions.length+'</b></div><div class="kpi-line"><span>معلمون لديهم حصص</span><b>'+Object.keys(activeTeachers).length+'</b></div><div class="kpi-line"><span>آخر حصة</span><b>'+(daySessions.reduce(function(m,s){return Math.max(m,s.period);},0)||"—")+'</b></div><div class="kpi-line"><span>آخر استيراد</span><b>'+(state.importedAt?new Date(state.importedAt).toLocaleDateString("ar-SA"):"—")+'</b></div>';
+}
+function renderEmployees(){
+ var q=norm(document.getElementById("employeeSearch").value);var rows=state.employees.filter(function(e){return !q||norm(e.name+" "+e.role+" "+e.subject).indexOf(q)>=0;});
+ document.getElementById("employeesBody").innerHTML=rows.length?rows.map(function(e){return '<tr><td><b>'+esc(e.name)+'</b></td><td><span class="badge '+roleClass(e.role)+'">'+esc(e.role)+'</span></td><td>'+esc(e.subject||"—")+'</td><td>'+esc(e.load||0)+'</td><td>'+esc(e.rank||"—")+'</td><td>'+esc(e.early||"—")+'</td><td><div class="mini-actions"><button class="btn small" onclick="editEmployee(\''+esc(e.id)+'\')">تعديل</button><button class="btn small danger" onclick="deleteEmployee(\''+esc(e.id)+'\')">حذف</button></div></td></tr>';}).join(""):'<tr><td colspan="7" class="empty">لا توجد أسماء.</td></tr>';
+}
+function renderWaitingSelectors(){
+ renderSelect("waitDay",DAYS.map(function(n,i){return{id:String(i),name:n};}),"");
+ var area=document.getElementById("absentSelectors");area.innerHTML="";
+ for(var i=0;i<4;i++){var l=document.createElement("label");l.className="field";l.innerHTML="الغائب "+(i+1)+'<select class="absent-select"><option value="">— لا يوجد —</option>'+state.teachers.map(function(t){return '<option value="'+esc(t.id)+'">'+esc(t.name)+'</option>';}).join("")+"</select>";area.appendChild(l);}
+}
+function teacherBusy(id,day,period){return state.sessions.some(function(s){return s.day===day&&s.period===period&&s.teacherIds.indexOf(id)>=0;});}
+function makeWaiting(){
+ var day=Number(document.getElementById("waitDay").value),date=document.getElementById("waitDate").value||todayISO();
+ var absent=Array.from(document.querySelectorAll(".absent-select")).map(function(x){return x.value;}).filter(Boolean).filter(function(v,i,a){return a.indexOf(v)===i;}).slice(0,4);
+ if(!absent.length){showAlert("اختر اسم معلم غائب واحد على الأقل.","warn");return;}
+ var needs=[];absent.forEach(function(id){state.sessions.filter(function(s){return s.day===day&&s.teacherIds.indexOf(id)>=0&&!/نشاط/.test(s.subjectName);}).forEach(function(s){needs.push({absentId:id,period:s.period,className:s.classNames.join("، "),subject:s.subjectName});});});
+ needs.sort(function(a,b){return a.period-b.period;});var used={},daily={},assignments=[];
+ needs.forEach(function(n){
+   var candidates=state.employees.filter(function(e){return e.role==="معلم"&&absent.indexOf(e.id)<0&&!teacherBusy(e.id,day,n.period)&&!(used[n.period]||[]).includes(e.id)&&(daily[e.id]||0)<2;});
+   candidates.sort(function(a,b){return (Number(a.rank)||99)-(Number(b.rank)||99)||((daily[a.id]||0)-(daily[b.id]||0))||((Number(a.load)||0)-(Number(b.load)||0));});
+   var pick=candidates[0]||null;if(pick){(used[n.period]||(used[n.period]=[])).push(pick.id);daily[pick.id]=(daily[pick.id]||0)+1;}
+   assignments.push(Object.assign({},n,{substitute:pick}));
+ });
+ state.teacherAbsences=state.teacherAbsences.filter(function(a){return !(a.date===date&&a.day===day);});absent.forEach(function(id){state.teacherAbsences.push({id:uid("ta"),teacherId:id,date:date,day:day});});saveState();
+ var box=document.getElementById("waitingResults");if(!assignments.length){box.innerHTML='<div class="empty">لا توجد حصص تحتاج إلى انتظار في هذا اليوم.</div>';}else box.innerHTML=assignments.map(function(a){var phone=a.substitute&&a.substitute.phone?String(a.substitute.phone).replace(/\D/g,""):"";var text="تكليف انتظار: الحصة "+a.period+"، فصل "+a.className+"، مادة "+a.subject+"، بتاريخ "+date;return '<div class="wait-item"><b>الحصة '+a.period+'</b><div><small>عن الغائب</small><br>'+esc(teacherName(a.absentId))+'</div><div><small>المكلّف</small><br><strong>'+(a.substitute?esc(a.substitute.name):"لم يتوفر بديل")+'</strong></div><div class="no-print">'+(phone?'<a class="btn small" target="_blank" rel="noopener" href="https://wa.me/'+phone+'?text='+encodeURIComponent(text)+'">فتح واتساب</a>':"—")+'</div></div>';}).join("");
+ document.getElementById("waitingPrintDate").textContent=DAYS[day]+" — "+date;renderDashboard();showAlert("تم إعداد سجل الانتظار وحفظ الغياب.","ok");
+}
+function renderAbsences(){
+ var f=document.getElementById("absenceClassFilter").value;var rows=state.studentAbsences.filter(function(a){return !f||a.classId===f;}).sort(function(a,b){return b.date.localeCompare(a.date);});
+ document.getElementById("absenceBody").innerHTML=rows.length?rows.map(function(a){return '<tr><td>'+esc(a.date)+'</td><td>'+esc(className(a.classId))+'</td><td>'+esc(a.count)+'</td><td>'+esc(a.note||"—")+'</td><td><button class="btn small danger" onclick="deleteAbsence(\''+esc(a.id)+'\')">حذف</button></td></tr>';}).join(""):'<tr><td colspan="5" class="empty">لا توجد سجلات.</td></tr>';
+ var total=rows.reduce(function(s,a){return s+Number(a.count||0);},0);document.getElementById("absTotal").textContent=total;document.getElementById("absRecords").textContent=rows.length;
+ if(rows.length){var byDate={};rows.forEach(function(a){byDate[a.date]=(byDate[a.date]||0)+Number(a.count||0);});var entries=Object.keys(byDate).map(function(d){return[d,byDate[d]];}).sort(function(a,b){return b[1]-a[1];});document.getElementById("absHigh").textContent=entries[0][1];document.getElementById("absHighDate").textContent=entries[0][0];document.getElementById("absLow").textContent=entries[entries.length-1][1];document.getElementById("absLowDate").textContent=entries[entries.length-1][0];}else{["absHigh","absLow"].forEach(function(id){document.getElementById(id).textContent="0";});["absHighDate","absLowDate"].forEach(function(id){document.getElementById(id).textContent="—";});}
+}
+function renderBells(){document.getElementById("bellEditor").innerHTML='<div class="table-wrap"><table><thead><tr><th>الحصة</th><th>البداية</th><th>النهاية</th></tr></thead><tbody>'+state.bells.map(function(b,i){return '<tr><td>'+b.n+'</td><td><input class="bell-start" data-i="'+i+'" type="time" value="'+esc(b.start)+'"></td><td><input class="bell-end" data-i="'+i+'" type="time" value="'+esc(b.end)+'"></td></tr>';}).join("")+'</tbody></table></div>';}
+function renderAll(){renderSchedules();renderDashboard();renderEmployees();renderWaitingSelectors();renderAbsences();renderBells();document.getElementById("schoolName").textContent=state.school;}
+function openModal(id){document.getElementById(id).classList.add("open");}
+window.closeModal=function(id){document.getElementById(id).classList.remove("open");};
+window.editEmployee=function(id){var e=state.employees.find(function(x){return x.id===id;});if(!e)return;["Id","Name","Role","Subject","Phone","Load","Rank","Supervision","Duty","Early"].forEach(function(k){document.getElementById("emp"+k).value=e[k.toLowerCase()]||"";});openModal("employeeModal");};
+window.deleteEmployee=function(id){var e=state.employees.find(function(x){return x.id===id;});if(!e||!confirm("حذف "+e.name+"؟"))return;state.employees=state.employees.filter(function(x){return x.id!==id;});saveState();renderEmployees();showAlert("تم حذف الاسم.","ok");};
+window.deleteAbsence=function(id){if(!confirm("حذف سجل الغياب؟"))return;state.studentAbsences=state.studentAbsences.filter(function(x){return x.id!==id;});saveState();renderAbsences();};
+window.printView=function(id){document.querySelectorAll(".view").forEach(function(v){v.classList.toggle("print-target",v.id===id);});window.print();};
+document.getElementById("nav").addEventListener("click",function(e){var b=e.target.closest(".nav-btn");if(!b)return;document.querySelectorAll(".nav-btn").forEach(function(x){x.classList.remove("active");});b.classList.add("active");document.querySelectorAll(".view").forEach(function(v){v.classList.toggle("active",v.id===b.dataset.view);});document.getElementById("pageTitle").textContent=b.querySelector("span:last-child").textContent;});
+["xmlInputMain","xmlInputSettings"].forEach(function(id){document.getElementById(id).addEventListener("change",function(){if(this.files[0])importXMLFile(this.files[0]);this.value="";});});
+document.getElementById("teacherFilter").addEventListener("change",renderSchedules);document.getElementById("classFilter").addEventListener("change",renderSchedules);document.getElementById("absenceClassFilter").addEventListener("change",renderAbsences);document.getElementById("employeeSearch").addEventListener("input",renderEmployees);document.getElementById("buildWaiting").addEventListener("click",makeWaiting);
+document.getElementById("addEmployee").addEventListener("click",function(){document.getElementById("employeeForm").reset();document.getElementById("empId").value="";openModal("employeeModal");});
+document.getElementById("employeeForm").addEventListener("submit",function(e){e.preventDefault();var id=document.getElementById("empId").value||uid("emp"),name=document.getElementById("empName").value.trim();var duplicate=state.employees.find(function(x){return norm(x.name)===norm(name)&&x.id!==id;});if(duplicate){showAlert("الاسم موجود مسبقًا؛ عدّل السجل الحالي بدل تكراره.","warn");return;}var obj={id:id,name:name,role:document.getElementById("empRole").value,subject:document.getElementById("empSubject").value.trim(),phone:document.getElementById("empPhone").value.trim(),load:Number(document.getElementById("empLoad").value||0),rank:Number(document.getElementById("empRank").value||99),supervision:document.getElementById("empSupervision").value.trim(),duty:document.getElementById("empDuty").value.trim(),early:document.getElementById("empEarly").value};var i=state.employees.findIndex(function(x){return x.id===id;});if(i>=0)state.employees[i]=obj;else state.employees.push(obj);saveState();closeModal("employeeModal");renderEmployees();renderWaitingSelectors();showAlert("تم حفظ بيانات الموظف.","ok");});
+document.getElementById("addStudentAbsence").addEventListener("click",function(){if(!state.classes.length){showAlert("استورد الجدول أولًا لإظهار الفصول.","warn");return;}document.getElementById("absenceForm").reset();document.getElementById("absDate").value=todayISO();openModal("absenceModal");});
+document.getElementById("absenceForm").addEventListener("submit",function(e){e.preventDefault();state.studentAbsences.push({id:uid("sa"),date:document.getElementById("absDate").value,classId:document.getElementById("absClass").value,count:Number(document.getElementById("absCount").value||0),note:document.getElementById("absNote").value.trim()});saveState();closeModal("absenceModal");renderAbsences();showAlert("تم تسجيل غياب الطلاب.","ok");});
+document.getElementById("saveBells").addEventListener("click",function(){state.bells=state.bells.map(function(b,i){return {n:b.n,start:document.querySelector('.bell-start[data-i="'+i+'"]').value,end:document.querySelector('.bell-end[data-i="'+i+'"]').value};});saveState();showAlert("تم حفظ أوقات الحصص.","ok");});
+document.getElementById("exportBackup").addEventListener("click",function(){var blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="نسخة-منصة-جابر-"+todayISO()+".json";a.click();setTimeout(function(){URL.revokeObjectURL(a.href);},1000);});
+document.getElementById("backupInput").addEventListener("change",function(){var f=this.files[0];if(!f)return;var r=new FileReader();r.onload=function(){try{var v=JSON.parse(r.result);if(!v.bells||!Array.isArray(v.sessions))throw new Error();state=Object.assign(emptyState(),v);saveState();renderAll();showAlert("تمت استعادة النسخة الاحتياطية.","ok");}catch(e){showAlert("ملف النسخة الاحتياطية غير صالح.","err");}};r.readAsText(f);this.value="";});
+document.getElementById("resetData").addEventListener("click",function(){if(!confirm("سيتم مسح بيانات المنصة المحفوظة في هذا المتصفح. هل أنت متأكد؟"))return;localStorage.removeItem(KEY);state=emptyState();renderAll();showAlert("تم مسح بيانات المتصفح.","ok");});
+document.getElementById("waitDate").value=todayISO();document.getElementById("waitDay").value=String(Math.min(Math.max(new Date().getDay(),0),4));
+function tick(){var d=new Date();document.getElementById("clock").textContent=d.toLocaleTimeString("ar-SA",{hour:"2-digit",minute:"2-digit"});document.getElementById("today").textContent=d.toLocaleDateString("ar-SA",{weekday:"long",day:"numeric",month:"short"});var p=currentPeriod();document.getElementById("periodNow").textContent=p?"الحصة "+p:"خارج وقت الحصص";}tick();setInterval(tick,30000);
+renderAll();
+})();
+</script>
+</body>
+</html>
